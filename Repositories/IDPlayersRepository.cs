@@ -2,7 +2,7 @@ using CSAPIPractice.Entities;
 
 namespace CSAPIPractice.Repositories
 {
-    public interface IPlayersRepository
+    public interface IDPlayersRepository
     {
         Player GetPlayer(string identifier);
         IEnumerable<Player> GetPlayers();

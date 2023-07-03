@@ -17,13 +17,20 @@ namespace CSAPIPractice
         }
         public static PlayerDTO AsDto(this Player player)
         {
-            return new PlayerDTO
-            {
-                Identifier = player.Identifier,
-                FirstName = player.FirstName,
-                LastName = player.LastName,
-                Job = player.Job
-            };
+            if (!(player is null)) {
+                return new PlayerDTO
+                {
+                    Identifier = player.Identifier,
+                    FirstName = player.FirstName,
+                    LastName = player.LastName,
+                    Job = player.Job,
+                    JobDuty = player.JobDuty,
+                    ToggleStatus = player.ToggleStatus,
+                    Rank = player.Rank
+                };
+            } else {
+                return null;
+            }
         }
     }
 }

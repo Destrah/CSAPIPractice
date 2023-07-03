@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IItemsRepository, InMemItemsRepository>();
 builder.Services.AddSingleton<IPlayersRepository, InMemPlayersRepository>();
+builder.Services.AddSingleton<IDPlayersRepository, InMemDPlayersRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

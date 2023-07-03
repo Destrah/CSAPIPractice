@@ -12,5 +12,11 @@ namespace CSAPIPractice.DTOs
         public string LastName { get; init; }
         [Required]
         public string Job { get; init; }
+        [Required]
+        public bool JobDuty { get; init; }
+        [Required]
+        public bool ToggleStatus { get; set; }
+        [Required]
+        public int Rank { get; set; }
     }
 }

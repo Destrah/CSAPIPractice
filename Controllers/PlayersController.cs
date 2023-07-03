@@ -43,16 +43,28 @@ namespace CSAPIPractice.Controllers
         [HttpPost]
         public ActionResult<PlayerDTO> AddPlayer(AddPlayerDTO playerDTO)
         {
-            Player player = new(){
-                Identifier = playerDTO.Identifier,
-                FirstName = playerDTO.FirstName,
-                LastName = playerDTO.LastName,
-                Job = playerDTO.Job,
-            };
+            if (!(playerDTO is null)) {
+                var tempPlayer = repository.GetPlayer(playerDTO.Identifier);
 
-            repository.AddPlayer(player);
+                if(tempPlayer is null) {
+                    Player player = new(){
+                        Identifier = playerDTO.Identifier,
+                        FirstName = playerDTO.FirstName,
+                        LastName = playerDTO.LastName,
+                        Job = playerDTO.Job,
+                        JobDuty = playerDTO.JobDuty,
+                        ToggleStatus = playerDTO.ToggleStatus,
+                        Rank = playerDTO.Rank
+                    };
+                    repository.AddPlayer(player);
 
-            return CreatedAtAction(nameof(GetPlayer), new { identifier = player.Identifier }, player.AsDto());
+                    return CreatedAtAction(nameof(GetPlayer), new { identifier = player.Identifier }, player.AsDto());
+                } else {
+                    return NotFound();
+                }
+            } else {
+                return NotFound();
+            }
         }
 
         // PUT /palyers/{identifier}
@@ -61,16 +73,12 @@ namespace CSAPIPractice.Controllers
         {
             var existingPlayer = repository.GetPlayer(identifier);
 
-            if (existingPlayer is null)
-            {
-                return NotFound();
-            }
-
             Player updatedPlayer = existingPlayer with
             {
-                FirstName = playerDTO.FirstName,
-                LastName = playerDTO.LastName,
-                Job = playerDTO.Job
+                Job = playerDTO.Job,
+                JobDuty = playerDTO.JobDuty,
+                ToggleStatus = playerDTO.ToggleStatus,
+                Rank = playerDTO.Rank
             };
 
             repository.UpdatePlayer(updatedPlayer);
@@ -91,6 +99,15 @@ namespace CSAPIPractice.Controllers
 
             repository.RemovePlayer(identifier);
 
+            return NoContent();
+        }
+
+        // DELETE /palyers
+        [HttpDelete]
+        public ActionResult RemoveAllPlayers()
+        {
+            repository.RemoveAllPlayers();
+            
             return NoContent();
         }
         

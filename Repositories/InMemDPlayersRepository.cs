@@ -5,7 +5,7 @@ using CSAPIPractice.Entities;
 namespace CSAPIPractice.Repositories
 {
 
-    public class InMemPlayersRepository : IPlayersRepository
+    public class InMemDPlayersRepository : IDPlayersRepository
     {
         private readonly List<Player> players = new List<Player>();
 
